@@ -5,7 +5,6 @@
   src="https://cdn.utmify.com.br/scripts/utms/latest.js"
   data-utmify-prevent-xcod-sck
   data-utmify-prevent-subids
-  data-utmify-preserve-params
   async
   defer
 ></script>
@@ -576,14 +575,21 @@
         };
         
         document.querySelectorAll('.cta-button').forEach(button => {
-            button.addEventListener('click', function() {
-                window.location.href = 'https://pay.kirvano.com/31962a12-227f-428a-948b-c24fe4744432' + window.location.search;
-            });
-        });
-        
-        document.querySelector('.secondary-button').addEventListener('click', function() {
-            window.location.href = 'https://pay.kirvano.com/31962a12-227f-428a-948b-c24fe4744432' + window.location.search;
-        });
+    button.addEventListener('click', function() {
+        // Pega os parâmetros UTM da URL atual (incluindo os processados pelo UTMify)
+        const params = new URLSearchParams(window.location.search);
+        // Monta a URL do checkout com os parâmetros preservados
+        const checkoutUrl = 'https://pay.kirvano.com/31962a12-227f-428a-948b-c24fe4744432?' + params.toString();
+        window.location.href = checkoutUrl;
+    });
+});
+
+document.querySelector('.secondary-button').addEventListener('click', function() {
+    // Mesma lógica para o botão secundário
+    const params = new URLSearchParams(window.location.search);
+    const checkoutUrl = 'https://pay.kirvano.com/31962a12-227f-428a-948b-c24fe4744432?' + params.toString();
+    window.location.href = checkoutUrl;
+});
     </script>
 </body>
 </html>
